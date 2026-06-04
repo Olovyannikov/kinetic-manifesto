@@ -1,6 +1,5 @@
 ---
 theme: seriph
-background: https://cover.sli.dev
 title: Кинетический манифест
 info: |
   ## Кинетический манифест
@@ -8,8 +7,8 @@ info: |
 class: text-center
 colorSchema: dark
 fonts:
-  sans: Manrope
-  mono: Fira Code
+  sans: Lexend Deca
+  mono: IBM Plex Mono
   weights: '300,400,500,600,700'
 drawings:
   persist: false
@@ -17,6 +16,10 @@ transition: slide-left
 mdc: true
 duration: 37min
 ---
+
+<div class="flex justify-center mb-5">
+  <span class="px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-yellow-300 text-black">MoscowJS #71</span>
+</div>
 
 # Кинетический манифест
 
@@ -27,13 +30,7 @@ Event-driven подход к состоянию и чем его реализу�
   Подход старше, чем кажется.
 </div>
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Нажмите Space, чтобы начать <carbon:arrow-right />
-</div>
-
 <!--
-**Открытие — задать главный тезис сразу.**
-
 > Управление состоянием — это не выбор библиотеки, а выбор **мировоззрения**.
 
 - Данные не лежат статично — они **движутся** через граф правил. Это и есть «кинетика».
@@ -44,18 +41,20 @@ Event-driven подход к состоянию и чем его реализу�
 -->
 
 ---
-layout: intro
+layout: image-right
+image: /holy_2025.jpg
 ---
 
-# О спикере
+# About
 
-**[Имя Фамилия]** — *[Должность / Роль]*
+**[Оловянников Илья]** — *[MoscowJS]*
 
-- [Опыт: стек, годы, масштаб проектов]
-- [Личная история: путь от императива к декларативу]
+- [Effector Community Member]
+- [MoscowJS организатор]
+- [Батя]
 
 <div class="pt-8 text-sm opacity-75">
-  Telegram <b>[@username]</b> · GitHub <b>[/username]</b> · [email]
+  - Telegram <b>[@olovyannikov_frontend]</b> <br/> - GitHub <b>[/Olovyannikov]</b>
 </div>
 
 <!--
@@ -69,12 +68,50 @@ layout: intro
 -->
 
 ---
+
+# План доклада
+
+<div class="flex flex-col gap-3 mt-6 text-base">
+
+<div class="flex items-center gap-4">
+  <div class="text-3xl text-[#fe6801]"><carbon:idea /></div>
+  <div><b>Что такое кинетический подход</b> <span class="opacity-60">— концепт: события, связи, реактивность; корни в KRL</span></div>
+</div>
+
+<div class="flex items-center gap-4">
+  <div class="text-3xl text-sky-400"><carbon:flow /></div>
+  <div><b>Как это реализуют</b> <span class="opacity-60">— Effector как пример + соседи: RxJS, XState, signals</span></div>
+</div>
+
+<div class="flex items-center gap-4">
+  <div class="text-3xl text-violet-400"><carbon:trophy /></div>
+  <div><b>Чем подход выигрывает</b> <span class="opacity-60">— race conditions, логика ≠ UI, тесты и SSR</span></div>
+</div>
+
+<div class="flex items-center gap-4">
+  <div class="text-3xl text-amber-400"><ph:scales-bold /></div>
+  <div><b>Trade-offs</b> <span class="opacity-60">— когда стоит, когда overkill, и какая цена</span></div>
+</div>
+
+</div>
+
+<!--
+**Карта доклада — 30 секунд.** Быстро проговариваю маршрут, не углубляясь.
+
+- Сначала концепт (что вообще такое кинетический подход), потом реализации, потом зачем оно (выигрыши), потом честные trade-offs.
+- Подчёркиваю: первые две трети — про **подход**, конкретный Effector — лишь пример.
+- Бонус в конце — обещание «вкусного» под занавес, держит внимание.
+
+⏱ ~0.5 мин
+-->
+
+---
 transition: fade-out
 ---
 
 # Данные больше не статичны
 
-Веб 2010-х: «загрузил страницу — увидел снимок данных».
+Веб 2000-х: «загрузил страницу — увидел снимок данных».
 Веб сегодня: данные **текут** непрерывно.
 
 <v-clicks>
@@ -88,7 +125,7 @@ transition: fade-out
 
 <v-click>
 
-<div class="mt-10 p-4 border-l-4 border-teal-400 bg-teal-400/5">
+<div class="mt-10 p-4 border-l-4 border-[#fe6801] bg-[#fe6801]/10">
 Если данные постоянно в движении — почему мы пишем код так, будто состояние стоит на месте и мы его «обновляем командами»?
 </div>
 
@@ -101,7 +138,7 @@ transition: fade-out
 - Все эти штуки — про **движущиеся данные**.
 
 ⚠️ Финальный вопрос в рамке **не отвечаю** — оставляю висеть. Весь доклад = ответ на него.
-
+  
 ⏱ ~1.5 мин
 -->
 
@@ -113,7 +150,7 @@ transition: fade-out
 
 | | **Дискретное / императивное** | **Кинетическое / декларативное** |
 |---|---|---|
-| Состояние | снимок, который ты мутируешь | поток через граф связей |
+| Состояние | снапшот, который ты мутируешь | поток через граф связей |
 | Ты пишешь | **порядок действий** | **связи**: «когда X — следует Y» |
 | Событие | повод вызвать обработчик | факт, что сам находит свои правила |
 | Логика | размазана по компонентам | в модели, отдельно от UI |
@@ -124,7 +161,7 @@ transition: fade-out
 <v-click>
 
 <div class="mt-8 p-4 border-l-4 border-amber-400 bg-amber-400/5 text-sm">
-<b>Без чучела:</b> дискретный подход — не «плохой». Для половины задач он честнее и проще.
+<b>Дисклеймер:</b> дискретный подход — не «плохой». Для половины задач он честнее и проще.
 Доклад не про «выбросьте useState», а про то, <b>когда и почему</b> второй взгляд мощнее. К trade-offs вернёмся.
 </div>
 
@@ -147,7 +184,7 @@ transition: fade-out
 layout: section
 ---
 
-<div class="text-7xl text-teal-400 opacity-80 mb-4"><carbon:idea /></div>
+<div class="text-7xl text-[#fe6801] opacity-80 mb-4"><carbon:idea /></div>
 
 # Часть 1
 ## Что такое кинетический подход
@@ -159,10 +196,67 @@ layout: section
 
 ---
 
-# Откуда метафора «кинетика»
+# Что такое «кинетика»?
 
-<div class="p-3 mb-4 border-l-4 border-rose-400 bg-rose-400/5 text-sm">
-<b>Честно для технарей:</b> в физике движение изучают <i>динамика</i> (с силами) и <i>кинематика</i> (без причин); «кинетика» — про скорость процессов. Здесь «кинетика» — это <b>имя из KRL</b>, а не учебник физики. Берём метафору за то, что в ней ценно:
+<div class="text-sm opacity-90 mb-3">
+Греч. <i>kinētikos</i> — «относящийся к движению» (κίνησις — движение). В классической механике движение описывают три раздела:
+</div>
+
+<div class="grid grid-cols-3 gap-3 text-sm">
+
+<div class="p-3 border border-gray-400/20 rounded">
+<b>Статика</b><br/><span class="opacity-70">равновесие тел — силы <b>без движения</b></span>
+</div>
+
+<div class="p-3 border border-gray-400/20 rounded">
+<b>Кинематика</b><br/><span class="opacity-70">геометрия движения (траектория, скорость) — <b>без причин</b></span>
+</div>
+
+<div class="p-3 border border-gray-400/20 rounded">
+<b>Динамика</b><br/><span class="opacity-70">движение <b>с учётом сил и масс</b> (законы Ньютона)</span>
+</div>
+
+</div>
+
+<div class="mt-3 p-2 border-l-4 border-rose-400 bg-rose-400/5 text-xs">
+Строго говоря, «кинетики» как раздела механики в русской традиции нет. Термин живёт в другом:
+</div>
+
+<div class="text-sm mt-3">
+
+- **Физическая кинетика** — статфизика: неравновесные процессы и перенос (диффузия, теплопроводность), уравнение Больцмана
+- **Химическая кинетика** — скорости реакций и их механизмы
+- **Англ. _kinetics_** — часть динамики о связи сил и движения (≈ рус. «динамика») → вероятный источник «kinetic» в KRL
+
+</div>
+
+<v-click>
+
+<div class="mt-4 text-center text-[#ff9243]">
+🔑 Общий знаменатель: кинетика — про <b>скорость и эволюцию процессов во времени</b>, а не про статичные снимки.
+</div>
+
+</v-click>
+
+<!--
+**Полноценно объясняю термин — чтобы метафора стояла на честном фундаменте.**
+
+- Этимология: *kinētikos* = «относящийся к движению».
+- Трио механики (Статика / Кинематика / Динамика): показываю, что строгого раздела «кинетика» в русской школе нет — снимаю придирку заранее.
+- Где термин реально живёт: физическая кинетика (статфизика, перенос), химическая (скорости реакций), англ. *kinetics* (= динамика).
+
+🔑 Общий смысл всех «кинетик» — скорость и эволюция **процессов** во времени. Это и переносим на данные.
+Не углубляться в формулы — это контекст, не лекция по физике.
+
+⏱ ~1.5 мин
+-->
+
+---
+
+# Кинетика как метафора
+
+<div class="text-sm opacity-90 mb-3">
+В стейт-менеджменте «кинетика» — не из учебника физики (это <b>имя из KRL</b>), а <b>метафора</b>. Берём её за то, что в ней ценно:
 </div>
 
 | Физическая интуиция | В управлении состоянием |
@@ -175,44 +269,26 @@ layout: section
 
 <v-click>
 
-<div class="mt-6 text-center text-teal-300">
-Состояние — не «точка», а <b>траектория</b> в графе. Ты строишь русло, а не толкаешь воду руками.
+<div class="mt-6 text-center text-[#ff9243]">
+Состояние — не «точка», а <b>траектория</b> в графе. <br/> У данных есть динамика – откуда они пришли, какими стали и куда идут.
 </div>
 
 </v-click>
 
 <!--
-**Сразу обезоруживаю придиру** розовой рамкой: да, в физике это динамика/кинематика.
-«Кинетика» — имя из KRL, метафора, не лекция по механике. Снимает 90% возражений.
+**Теперь — метафора.** Фундамент заложен предыдущим слайдом, тут связываем с кодом.
 
 - Прохожу по таблице — знакомые штуки под новым углом.
 - `debounce` как «трение» обычно заходит: «трение гасит лишний импульс».
 - Финальная мысль (русло / вода) — лейтмотив, вернётся в финале.
 
----
-
-#### 📚 Справка: «кинетика» в физике (для Q&A)
-
-Греч. *kinētikos* — «относящийся к движению».
-
-**В русской школе механики раздела «кинетика» нет.** Движение изучают:
-- **Статика** — равновесие тел (силы без движения)
-- **Кинематика** — геометрия движения (траектория, скорость, ускорение) **без причин**
-- **Динамика** — движение **с учётом сил и масс** (законы Ньютона)
-
-**Где «кинетика» живёт на самом деле:**
-1. **Физическая кинетика** — статфизика: неравновесные процессы, явления переноса (диффузия, теплопроводность, вязкость), уравнение Больцмана. Суть — **скорость и эволюция процессов во времени**.
-2. **Химическая кинетика** — скорости реакций и их механизмы.
-3. **Инженерн./англ. *kinetics*** — часть динамики о связи сил и движения (≈ рус. «динамика»). Скорее всего, отсюда «kinetic» в KRL.
-
-🔑 Связка с докладом: кинетика = про **процессы в движении и их скорость**, а не про статичные снимки.
-
-⏱ ~2 мин
+⏱ ~1.5 мин
 -->
 
 ---
 
 # KRL — язык для «Живого Веба»
+## Kinetic Rule Language
 
 <div class="grid grid-cols-2 gap-6 mt-2 text-sm">
 
@@ -244,14 +320,6 @@ layout: section
 </div>
 
 </div>
-
-<v-click>
-
-<div class="mt-4 p-3 border-l-4 border-teal-400 bg-teal-400/5 text-sm">
-<b>Salience:</b> событие «поднимается» (raise) для сущности — оно <b>не адресовано</b> конкретному коду. Правило само «подписано» на него. Декларативная, рассыпанная реакция — ровно то, что делают современные стейт-менеджеры.
-</div>
-
-</v-click>
 
 <!--
 **Отдельный слайд про сам язык** — даёт исторический вес и контекст.
@@ -297,8 +365,8 @@ rule good_morning {
 
 <div class="self-center text-2xl opacity-30">→</div>
 
-<div v-click class="flex-1 p-3 border border-teal-400/30 rounded bg-teal-400/5">
-<div class="text-teal-300 font-bold mb-1"><ph:target-bold class="inline" /> Action — пуля</div>
+<div v-click class="flex-1 p-3 border border-[#fe6801]/40 rounded bg-[#fe6801]/10">
+<div class="text-[#ff9243] font-bold mb-1"><ph:target-bold class="inline" /> Action — пуля</div>
 <span class="opacity-70">меняет состояние / эффект / новое событие</span>
 </div>
 
@@ -318,7 +386,7 @@ rule good_morning {
 - Подсветка кода по строкам: **EVENT / CONDITION / ACTION**.
 - Метафора ружья (курок → предохранитель → пуля) — прямо из Википедии про KRL, наглядная и запоминается.
 - Условие — не if/else: нет «иначе». Не прошло — правило просто молчит. Как и `filter` в `sample`.
-
+ 
 **Мост в современность:** тот же ECA вы уже пишете в reducer'ах и `sample`, просто не называете так. Подходу ~20 лет.
 
 ⏱ ~2 мин
@@ -330,8 +398,8 @@ rule good_morning {
 
 <div class="grid grid-cols-3 gap-4 mt-6">
 
-<div v-click class="p-4 border border-teal-400/30 rounded bg-teal-400/5">
-<div class="text-teal-300 font-bold mb-2">1. Event-driven</div>
+<div v-click class="p-4 border border-[#fe6801]/40 rounded bg-[#fe6801]/10">
+<div class="text-[#ff9243] font-bold mb-2">1. Event-driven</div>
 Уведомление, а не команда.<br/><br/>
 <span class="opacity-70 text-sm">
 Императив: «Сделай!»<br/>
@@ -407,7 +475,7 @@ rule good_morning {
 
 <v-click>
 
-<div class="mt-4 text-center text-teal-300">
+<div class="mt-4 text-center text-[#ff9243]">
 Это не мода. Меняется только, <b>насколько явно</b> мы видим граф в коде.
 </div>
 
@@ -468,7 +536,7 @@ flowchart LR
 
 <v-click>
 
-<div class="mt-2 text-center text-teal-300 text-sm">
+<div class="mt-2 text-center text-[#ff9243] text-sm">
 Примитивы разные — подход один. Дальше код на Effector, но мысль переносится на любую строку.
 </div>
 
@@ -542,7 +610,7 @@ sample({ clock: $todos, target: saveFx })
 <div class="grid grid-cols-2 gap-4 mt-4">
 
 <div v-click class="p-3 border border-gray-400/20 rounded">
-<b class="text-teal-300"><ph:wave-sine-bold class="inline" /> RxJS</b> — явные <b>потоки</b>.<br/>
+<b class="text-[#ff9243]"><ph:wave-sine-bold class="inline" /> RxJS</b> — явные <b>потоки</b>.<br/>
 <span class="text-sm opacity-70">Мощная асинхронная композиция; кривая обучения крутая.</span>
 </div>
 
@@ -565,7 +633,7 @@ sample({ clock: $todos, target: saveFx })
 
 <v-click>
 
-<div class="mt-6 text-center text-teal-300">
+<div class="mt-6 text-center text-[#ff9243]">
 Выбор библиотеки = выбор того, <b>что сделать явным</b>: граф / потоки / режимы / вычисления.
 </div>
 
@@ -635,7 +703,7 @@ sample({
 
 <v-click>
 
-<div class="mt-8 p-4 border-l-4 border-teal-400 bg-teal-400/5">
+<div class="mt-8 p-4 border-l-4 border-[#fe6801] bg-[#fe6801]/10">
 Нет зазора для «дрейфа состояния» — снимок берётся атомарно. То же в RxJS через <code>withLatestFrom</code>: это свойство <b>подхода</b>, а не одной библиотеки.
 </div>
 
@@ -784,7 +852,7 @@ expect(scope.getState($todos)).toHaveLength(1)
 
 <v-click>
 
-<div class="mt-8 p-4 border-l-4 border-teal-400 bg-teal-400/5">
+<div class="mt-8 p-4 border-l-4 border-[#fe6801] bg-[#fe6801]/10">
 Тот же механизм работает на сервере: <b>скоуп на каждый запрос</b> → нет утечки состояния между пользователями.
 </div>
 
@@ -852,7 +920,7 @@ layoutClass: gap-8
 
 <v-click>
 
-<div class="mt-6 text-sm text-teal-300">
+<div class="mt-6 text-sm text-[#ff9243]">
 Это инвестиция в сложность данных. Нет сложности — нет окупаемости.
 </div>
 
@@ -882,8 +950,6 @@ layoutClass: gap-8
 
 - 👻 **Spooky action at a distance.** Обратная сторона реактивности: изменил одно — где-то далеко среагировало. Неявные зависимости трудно держать в голове.
 
-- ⚖️ **Выбор яда:** бойлерплейт (Effector) против неявности (signals/MobX). Бесплатно не бывает.
-
 - 📖 **Линейность.** Последовательный код иногда **просто читается сверху вниз** — граф так не прочитать.
 
 </v-clicks>
@@ -907,7 +973,7 @@ layoutClass: gap-8
 
 <v-clicks>
 
-<div class="p-4 border-l-4 border-teal-400 bg-teal-400/5">
+<div class="p-4 border-l-4 border-[#fe6801] bg-[#fe6801]/10">
 <b>1. Постепенно.</b> Один сложный кусок (чекаут, фид, форма с гонками) — на кинетику. Остальное оставить как есть.
 </div>
 
@@ -935,50 +1001,10 @@ layoutClass: gap-8
 -->
 
 ---
-
-# Бонус: кинетика — не только метафора
-
-Та же `sample`-машина моделирует **настоящую физику** — скорость, инерцию, трение. «Кинетика» здесь буквальна.
-
-```ts {all|1-3|6|8}
-const tick = createEvent()          // пульс requestAnimationFrame
-const $target = createStore(0)      // куда тянем (палец, цель)
-const $pos = createStore(0)         // плавная координата на экране
-
-sample({
-  clock: tick,                                          // каждый кадр…
-  source: { pos: $pos, target: $target },
-  fn: ({ pos, target }) => pos + (target - pos) * 0.15, // lerp = «доводка»
-  target: $pos,
-})
-```
-
-<v-clicks>
-
-- Добавь `$velocity` и `* 0.95` за тик — получишь **инерцию** (Tinder-свайп, kinetic scroll)
-- Физика живёт в графе, **в обход ре-рендеров** — стор двигает DOM напрямую
-- Тот же ECA: событие (кадр) → условие → действие. Просто «состояние» теперь — позиция в пространстве
-
-</v-clicks>
-
-<!--
-**Пуант: метафора окупается буквально.** Лёгкий, «вкусный» слайд после серьёзных trade-offs.
-
-- Показываю lerp: каждый кадр позиция догоняет цель на 15%. Это `sample`, тот же, что в бизнес-логике.
-- Добавь velocity + трение (`* 0.95`) → инерция: Tinder-свайп, инерционный скролл а-ля iOS.
-- 🔑 Физика считается в графе, в обход ре-рендеров React — стор двигает DOM напрямую (.watch / reflect), 120 FPS.
-
-Связка: «состояние, которое движется» — это не только про данные, это может быть буквально координата в пространстве.
-Если есть демо — показать перетаскиваемую карточку с инерцией.
-
-⏱ ~1.5 мин
--->
-
----
 layout: section
 ---
 
-<div class="text-7xl text-teal-400 opacity-80 mb-4"><carbon:flag /></div>
+<div class="text-7xl text-[#fe6801] opacity-80 mb-4"><carbon:flag /></div>
 
 # Заключение
 
@@ -1019,7 +1045,7 @@ flowchart TD
 
 <div class="text-xs text-center opacity-75 mt-4 leading-relaxed">
 Три столпа в одном цикле:<br/>
-<span class="text-teal-300">event-driven</span> → <span class="text-sky-300">декларативные связи</span> → <span class="text-violet-300">реактивность</span>
+<span class="text-[#ff9243]">event-driven</span> → <span class="text-sky-300">декларативные связи</span> → <span class="text-violet-300">реактивность</span>
 </div>
 
 </div>
@@ -1079,7 +1105,7 @@ class: text-center
 # 
 
 <div class="text-2xl leading-relaxed max-w-3xl">
-«Кинетический стейт-менеджмент — это когда ты строишь <b class="text-teal-300">русло</b>, а не толкаешь воду.
+«Кинетический подход — это когда ты строишь <b class="text-[#ff9243]">русло</b>, а не толкаешь воду.
 <br/><br/>
 Ты не управляешь потоком вручную — граф управляет им сам, по правилам, которые ты объявил.
 <br/><br/>
@@ -1103,12 +1129,7 @@ class: text-center
 
 # Спасибо!
 
-Вопросы · демо · ссылки
-
-<div class="mt-6 text-sm opacity-75">
-Демо: форма с валидацией и гонкой — наивно на <code>useState</code>/<code>useEffect</code> против Effector.<br/>
-Один сценарий, два мышления.
-</div>
+Вопросы
 
 <div class="mt-8 flex justify-center gap-8 text-sm">
   <a href="https://en.wikipedia.org/wiki/Kinetic_Rule_Language" target="_blank">KRL</a>

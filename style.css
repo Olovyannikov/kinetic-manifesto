@@ -1,17 +1,50 @@
-/* Переопределяем seriph-тему: заголовки без засечек (Manrope вместо serif) */
+/* === Цветовая тема Effector (effector.dev, тёмная) === */
+:root {
+  --slidev-theme-primary: #fe6801; /* фирменный оранжевый Effector */
+  --eff-bg: #1d1d1f;               /* фон страницы */
+  --eff-fg: #fafafa;               /* основной текст */
+  --eff-orange: #fe6801;
+  --eff-orange-light: #ff9243;
+}
+
+.slidev-layout {
+  background-color: var(--eff-bg);
+  color: var(--eff-fg);
+}
+
+/* Ссылки в фирменный оранжевый */
+.slidev-layout a {
+  color: var(--eff-orange-light);
+}
+
+/* Переопределяем seriph-тему: заголовки без засечек (Lexend Deca) + белые */
 .slidev-layout h1,
 .slidev-layout h2,
 .slidev-layout h3,
 .slidev-layout h4,
 .slidev-layout h5,
 .slidev-layout h6 {
-  font-family: 'Manrope', var(--slidev-font-sans), ui-sans-serif, sans-serif;
+  font-family: 'Lexend Deca', var(--slidev-font-sans), ui-sans-serif, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: #fff;
 }
 
 .slidev-layout h1 {
   font-weight: 800;
+}
+
+/* Логотип MoscowJS в левом нижнем углу */
+.slidev-brand-logo {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.7rem;
+  height: 1.9rem;
+  width: auto;
+  border-radius: 4px;
+  opacity: 0.9;
+  z-index: 20;
+  pointer-events: none;
 }
 
 /* Номер слайда в правом нижнем углу */
@@ -19,7 +52,7 @@
   position: absolute;
   right: 1rem;
   bottom: 0.75rem;
-  font-family: 'Fira Code', var(--slidev-font-mono), monospace;
+  font-family: 'IBM Plex Mono', var(--slidev-font-mono), monospace;
   font-size: 0.7rem;
   opacity: 0.4;
   z-index: 20;
