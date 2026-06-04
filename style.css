@@ -1,0 +1,26 @@
+/* Переопределяем seriph-тему: заголовки без засечек (Manrope вместо serif) */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4,
+.slidev-layout h5,
+.slidev-layout h6 {
+  font-family: 'Manrope', var(--slidev-font-sans), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.slidev-layout h1 {
+  font-weight: 800;
+}
+
+/* Номер слайда в правом нижнем углу */
+.slidev-page-no {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.75rem;
+  font-family: 'Fira Code', var(--slidev-font-mono), monospace;
+  font-size: 0.7rem;
+  opacity: 0.4;
+  z-index: 20;
+}

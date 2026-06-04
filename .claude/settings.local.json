@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run *)",
+      "Bash(grep -n \"^# \\\\|^## \\\\|layout: section\\\\|^---$\\\\|layout: two-cols\\\\|layout: center\" slides.md)",
+      "Bash(grep -nE \"^#{1,3} \" \"Effector Playbook \\(full\\).md\")"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "effector-playbook": {
+      "source": "neolite/effector-playbook",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "777721c11f100c4b5b73927dcf3e8f12f60c41969abb9c8c7574b7256e789507"
+    },
+    "effectorjs": {
+      "source": "aiko-atami/effectorjs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/effectorjs/SKILL.md",
+      "computedHash": "ef9db8af751d6636895fe6c30465d5d8433a4ffae58558f55f44fb62ab58d008"
+    },
+    "slidev": {
+      "source": "slidevjs/slidev",
+      "sourceType": "github",
+      "skillPath": "skills/slidev/SKILL.md",
+      "computedHash": "a495cfada5d3b29c66c2fbbccb4ef9887d6b12bd7e440d100deea89e529c1a7b"
+    }
+  }
+}
