@@ -168,19 +168,22 @@ layoutClass: gap-6
 
 # Как растёт императивный код
 
-```tsx {all|2-4|6-9|11-12}
+```tsx {all|2-4|6-11|13-16}
 function SearchUsers() {
   const [q, setQ] = useState('')
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {               // добавили «живой поиск»
+  // добавили «живой поиск»
+  useEffect(() => {
     if (q.length < 2) return
-    api.search(q).then(setUsers)  // ответы — вразнобой
+    // ответы приходят вразнобой
+    api.search(q).then(setUsers)
   }, [q])
 
-  async function onSubmit() {     // та же логика из формы…
-    setUsers(await api.search(q)) // …продублирована
+  // та же логика из формы — продублирована
+  async function onSubmit() {
+    setUsers(await api.search(q))
   }
 }
 ```
@@ -286,12 +289,12 @@ $users.on(searchFx.doneData, (_, u) => u)
 <div class="text-sm">
 
 | | **Дискретное / императивное** | **Кинетическое / декларативное** |
-|---|---|---|
+|---|-------------------------------|---|
 | Состояние | снапшот, который ты мутируешь | поток через граф связей |
-| Ты пишешь | **порядок действий** | **связи**: «когда X — следует Y» |
-| Событие | повод вызвать обработчик | факт, что сам находит свои правила |
-| Логика | размазана по компонентам | в модели, отдельно от UI |
-| Примеры | `useState`, Redux, Zustand | Effector, RxJS, XState, signals |
+| Ты пишешь | **порядок действий**          | **связи**: «когда X — следует Y» |
+| Событие | повод вызвать обработчик      | факт, что сам находит свои правила |
+| Логика | размазана по компонентам      | в модели, отдельно от UI |
+| Примеры | Redux, Zustand, `useState`              | Effector, RxJS, XState, signals |
 
 </div>
 
@@ -383,12 +386,19 @@ layout: section
 В стейт-менеджменте «кинетика» — не из учебника физики (это <b>имя из KRL</b>), а <b>метафора</b>. Берём её за то, что в ней ценно:
 </div>
 
-| Физическая интуиция | В управлении состоянием |
-|---|---|
-| **Импульс** (толкнули) | **Event** — клик, ввод, сообщение из сокета |
-| **Траектория** | путь данных через граф правил |
-| **Препятствие** | условие / фильтр — пропустить или нет |
-| **Результат движения** | эффект: запрос, запись, уведомление |
+<table>
+<thead>
+<tr><th>Физическая интуиция</th><th>В управлении состоянием</th></tr>
+</thead>
+<tbody>
+<v-clicks>
+<tr><td><b>Импульс</b> (толкнули)</td><td><b>Event</b> — клик, ввод, сообщение из сокета</td></tr>
+<tr><td><b>Траектория</b></td><td>путь данных через граф правил</td></tr>
+<tr><td><b>Препятствие</b></td><td>условие / фильтр — пропустить или нет</td></tr>
+<tr><td><b>Результат движения</b></td><td>эффект: запрос, запись, уведомление</td></tr>
+</v-clicks>
+</tbody>
+</table>
 
 <v-click>
 
@@ -475,8 +485,8 @@ flowchart LR
 </div>
 
 <div class="text-sm">
-Вот он, наш первый граф. <b class="text-[#ff9243]">Узлы</b> — событие, условие, действие; <b class="text-[#ff9243]">рёбра</b> — что за чем следует.<br/><br/>
-Правило — путь <b>Event → Condition → Action</b>. Не прошло условие — правило молчит. А действие рождает новое событие → правила сцепляются в <b>граф</b>.
+Вот он, наш первый граф.<br/> <b class="text-[#ff9243]">Узлы</b> — событие, условие, действие;<br/> <b class="text-[#ff9243]">рёбра</b> — что за чем следует.<br/><br/>
+Правило — путь <b>Event → Condition → Action</b>.<br/><br/> Не прошло условие — правило молчит. <br/><br/>А действие рождает новое событие → <br/>правила сцепляются в <b>граф</b>.
 </div>
 
 </div>
@@ -756,7 +766,7 @@ layoutClass: gap-6
 
 Все связи **записаны в коде** — и складываются в граф:
 
-```ts {all|1-3|5-11|13}
+```ts {all|1-3|5-11|13-14}
 const todoAdded = createEvent<string>()  // событие
 const $todos = createStore<Todo[]>([])   // состояние
 const saveFx = createEffect(saveTodos)   // эффект
@@ -769,7 +779,8 @@ sample({                  // правило (ECA)
   target: $todos,         // положить
 })
 
-sample({ clock: $todos, target: saveFx }) // автосохранение
+// автосохранение
+sample({ clock: $todos, target: saveFx }) 
 ```
 
 ::right::
@@ -785,7 +796,7 @@ flowchart TD
 <v-click>
 
 <div class="text-sm mt-4">
-Код слева <b>строит этот граф</b>: юниты — <b class="text-[#ff9243]">узлы</b>, <code>sample</code> — <b class="text-[#ff9243]">рёбра</b>. Данные бегут по рёбрам, а не вызываются вручную.
+Код слева <b>строит этот граф</b>: юниты — <b class="text-[#ff9243]">узлы</b>, <code>sample</code> — <b class="text-[#ff9243]">рёбра</b>.<br/> Данные бегут по рёбрам, а не вызываются вручную.
 </div>
 
 </v-click>
@@ -1054,19 +1065,48 @@ layoutClass: gap-8
 -->
 
 ---
+class: flex flex-col
+---
 
 # Цена, о которой молчат
 
+<div class="flex-1 flex items-center">
+<div class="grid grid-cols-3 gap-5 w-full">
 <v-clicks>
 
-- 🔍 **Дебаг графа.** «Откуда прилетело это обновление?» — без devtools больно.
+<div class="p-5 rounded-xl border border-rose-400/30 bg-rose-400/5">
+  <div class="flex items-center gap-3 mb-2">
+    <div class="text-3xl text-rose-400"><carbon:debug /></div>
+    <div class="font-bold text-lg">Дебаг графа</div>
+  </div>
+  <div class="text-sm opacity-80">«Откуда прилетело это обновление?» Изменение приходит издалека — без devtools трассировать больно.</div>
+  <div class="mt-3 font-mono text-xs opacity-60">event → ? → ? → 💥 store</div>
+</div>
 
-- 📖 **Линейность.** Последовательный код иногда **просто читается сверху вниз** — граф так не прочитать.
+<div class="p-5 rounded-xl border border-violet-400/30 bg-violet-400/5">
+  <div class="flex items-center gap-3 mb-2">
+    <div class="text-3xl text-violet-400"><ph:brain-bold /></div>
+    <div class="font-bold text-lg">Порог входа</div>
+  </div>
+  <div class="text-sm opacity-80">Нужно перестроить мышление: с «команд» на <b>граф событий и связей</b>.</div>
+  <div class="mt-3 font-mono text-xs opacity-60">императив → 🧠 → граф</div>
+</div>
+
+<div class="p-5 rounded-xl border border-sky-400/30 bg-sky-400/5">
+  <div class="flex items-center gap-3 mb-2">
+    <div class="text-3xl text-sky-400"><carbon:text-align-left /></div>
+    <div class="font-bold text-lg">Линейность</div>
+  </div>
+  <div class="text-sm opacity-80">Императив читается <b>сверху вниз</b> — граф так не прочитать.</div>
+  <div class="mt-3 font-mono text-xs opacity-60">1 → 2 → 3   vs   ┌─ graph ─┐</div>
+</div>
 
 </v-clicks>
+</div>
+</div>
 
 <!--
-🗣 И цена, о которой молчат. Граф тяжелее дебажить — «откуда прилетело обновление?». Обратная сторона реактивности — «жуткое действие на расстоянии». Выбор яда: либо бойлерплейт, как в Effector, либо «магия», как в сигналах. И иногда обычный код просто читается сверху вниз, а граф — нет.
+🗣 И цена, о которой молчат. Граф тяжелее дебажить — «откуда прилетело обновление?»: изменение приходит издалека, через связи, без devtools трассировать больно. Есть и порог входа: надо перестроить мышление с команд на граф событий и связей. И иногда обычный код просто читается сверху вниз, а граф — нет.
 
 ⏱ ~40s · при отставании — одной фразой
 -->
@@ -1121,6 +1161,8 @@ layoutClass: gap-8
 
 <div class="pt-6">
 
+<div class="flex justify-center">
+
 ```mermaid {scale: 0.5}
 flowchart TD
   ev([Event]) --> g{связи}
@@ -1128,6 +1170,8 @@ flowchart TD
   st --> ui[UI]
   st -. эффект / новое событие .-> ev
 ```
+
+</div>
 
 <div class="text-xs text-center opacity-70 mt-2">три столпа в одном цикле</div>
 
@@ -1138,9 +1182,9 @@ flowchart TD
   <a href="https://stately.ai/docs/xstate" target="_blank">XState</a>
 </div>
 
-<div class="mt-4 text-center text-sm opacity-60">
-  Вопросы · Telegram [@username] · GitHub [/username]
-</div>
+<ul class="mt-4 ml-24 text-sm opacity-60">
+  <li> Telegram [@olovyannikov_frontend]</li> <li> GitHub [/Olovyannikov]</li>
+</ul>
 
 </div>
 
