@@ -5,7 +5,7 @@ info: |
   Кинетический манифест
   Event-driven подход к состоянию и чем его реализуют — от KRL до Effector. 
 class: text-center
-colorSchema: dark
+colorSchema: auto
 fonts:
   sans: Lexend Deca
   mono: IBM Plex Mono
@@ -60,24 +60,24 @@ image: /holy_2025.jpg
 <v-click>
 <div class="flex items-center gap-4">
   <div class="text-3xl text-[#fe6801]"><carbon:idea /></div>
-  <div><b>Что такое кинетический подход</b> <span class="opacity-60">— концепт: события, связи, реактивность; корни в KRL</span></div>
+  <div><b>Что такое кинетический подход</b> <span class="opacity-75">— концепт: события, связи, реактивность; корни в KRL</span></div>
 </div></v-click>
 
 <v-click>
 <div class="flex items-center gap-4">
   <div class="text-3xl text-sky-400"><carbon:flow /></div>
-  <div><b>Как это реализуют</b> <span class="opacity-60">— Effector как пример + соседи: RxJS, XState, signals</span></div>
+  <div><b>Как это реализуют</b> <span class="opacity-75">— Effector как пример + соседи: RxJS, XState, signals</span></div>
 </div>
 </v-click>
 <div class="flex items-center gap-4">
   <div class="text-3xl text-violet-400"><carbon:trophy /></div>
-  <div><b>Чем подход выигрывает</b> <span class="opacity-60">— race conditions, логика ≠ UI, тесты и SSR</span></div>
+  <div><b>Чем подход выигрывает</b> <span class="opacity-75">— race conditions, логика ≠ UI, тесты и SSR</span></div>
 </div>
 <v-click>
 
 <div class="flex items-center gap-4">
   <div class="text-3xl text-amber-400"><ph:scales-bold /></div>
-  <div><b>Trade-offs</b> <span class="opacity-60">— когда стоит, когда overkill, и какая цена</span></div>
+  <div><b>Trade-offs</b> <span class="opacity-75">— когда стоит, когда overkill, и какая цена</span></div>
 </div>
 </v-click>
 </v-clicks>
@@ -106,7 +106,7 @@ class: text-center
   <span class="px-5 py-2 rounded-full border border-gray-400/30">🤔 Не уверен / нет</span>
 </div>
 
-<div class="opacity-60 mt-10 text-sm">Поднимите руку — пригодится в следующие 10 минут</div>
+<div class="opacity-75 mt-10 text-sm">Поднимите руку — пригодится в следующие 10 минут</div>
 
 <!--
 🗣 Но сначала — вопрос вам. Поднимите руку: кто согласен, что веб — это событийно-ориентированная среда? … Вижу. А кто не уверен или не согласен? … Запомните свою руку — вернёмся к этому в конце.
@@ -150,7 +150,7 @@ transition: fade-out
 layout: section
 ---
 
-<div class="text-7xl text-rose-400 opacity-80 mb-4"><ph:warning-bold /></div>
+<div class="text-7xl text-rose-400 opacity-90 mb-4"><ph:warning-bold /></div>
 
 # Проблема
 ## Почему императивный код не масштабируется
@@ -224,7 +224,7 @@ function SearchUsers() {
 <div class="grid grid-cols-2 gap-4">
 
 <div>
-<div class="text-xs mb-1 opacity-60">❌ Императивно — логика прибита к UI</div>
+<div class="text-xs mb-1 opacity-75">❌ Императивно — логика прибита к UI</div>
 
 ```tsx {7,11}
 function SearchUsers() {
@@ -245,7 +245,7 @@ function SearchUsers() {
 </div>
 
 <div>
-<div class="text-xs mb-1 opacity-60">✅ Кинетически — граф решает порядок</div>
+<div class="text-xs mb-1 opacity-75">✅ Кинетически — граф решает порядок</div>
 
 ```ts {5-9}
 const searchUsers = createEvent<string>()
@@ -317,7 +317,7 @@ $users.on(searchFx.doneData, (_, u) => u)
 layout: section
 ---
 
-<div class="text-7xl text-[#fe6801] opacity-80 mb-4"><carbon:idea /></div>
+<div class="text-7xl text-[#fe6801] opacity-90 mb-4"><carbon:idea /></div>
 
 # Часть 1
 ## Что такое кинетический подход
@@ -339,15 +339,15 @@ layout: section
 <div class="grid grid-cols-3 gap-3 text-sm">
 
 <div class="p-3 border border-gray-400/20 rounded">
-<b>Статика</b><br/><span class="opacity-70">равновесие тел — силы <b>без движения</b></span>
+<b>Статика</b><br/><span class="opacity-85">равновесие тел — силы <b>без движения</b></span>
 </div>
 
 <div class="p-3 border border-gray-400/20 rounded">
-<b>Кинематика</b><br/><span class="opacity-70">геометрия движения (траектория, скорость) — <b>без причин</b></span>
+<b>Кинематика</b><br/><span class="opacity-85">геометрия движения (траектория, скорость) — <b>без причин</b></span>
 </div>
 
 <div class="p-3 border border-gray-400/20 rounded">
-<b>Динамика</b><br/><span class="opacity-70">движение <b>с учётом сил и масс</b> (законы Ньютона)</span>
+<b>Динамика</b><br/><span class="opacity-85">движение <b>с учётом сил и масс</b> (законы Ньютона)</span>
 </div>
 
 </div>
@@ -493,7 +493,7 @@ flowchart LR
 
 <v-click>
 
-<div class="mt-5 text-sm opacity-80 text-center">
+<div class="mt-5 text-sm opacity-90 text-center">
 Тот же ECA лежит под Effector (<code>event → filter → target</code>), под reducer'ами, под стейт-машинами. Подходу почти 20 лет.
 </div>
 
@@ -544,7 +544,7 @@ flowchart LR
   D -.-> A
 ```
 
-<div class="text-center text-xs opacity-60 mt-3">
+<div class="text-center text-xs opacity-75 mt-3">
 4 узла · рёбра со стрелками · пунктир — обратная связь
 </div>
 
@@ -567,7 +567,7 @@ flowchart LR
 <div v-click class="p-4 border border-[#fe6801]/40 rounded bg-[#fe6801]/10">
 <div class="text-[#ff9243] font-bold mb-2">1. Event-driven</div>
 Уведомление, а не команда.<br/><br/>
-<span class="opacity-70 text-sm">
+<span class="opacity-85 text-sm">
 Императив: «Сделай!»<br/>
 Вопрос: «Сделаешь ли?»<br/>
 <b>Event: «Это случилось».</b><br/><br/>
@@ -578,7 +578,7 @@ flowchart LR
 <div v-click class="p-4 border border-sky-400/30 rounded bg-sky-400/5">
 <div class="text-sky-300 font-bold mb-2">2. Declarative</div>
 Связи вместо порядка.<br/><br/>
-<span class="opacity-70 text-sm">
+<span class="opacity-85 text-sm">
 Ты не пишешь «сначала А, потом Б».<br/><br/>
 Ты объявляешь: «Б зависит от А».<br/><br/>
 Порядок вычислит граф.
@@ -588,7 +588,7 @@ flowchart LR
 <div v-click class="p-4 border border-violet-400/30 rounded bg-violet-400/5">
 <div class="text-violet-300 font-bold mb-2">3. Reactivity</div>
 Граф пересчитывается сам.<br/><br/>
-<span class="opacity-70 text-sm">
+<span class="opacity-85 text-sm">
 Изменился источник →<br/>
 производные обновились автоматически,<br/>
 в один тик,<br/>
@@ -600,7 +600,7 @@ flowchart LR
 
 <v-click>
 
-<div class="mt-6 text-center text-sm opacity-80">
+<div class="mt-6 text-center text-sm opacity-90">
 Эти три вещи делают подход «кинетическим» — <b>независимо от библиотеки</b>.
 </div>
 
@@ -656,7 +656,7 @@ flowchart LR
   s --> t[(withTax)]
 ```
 
-<div class="text-center text-xs opacity-60 mt-3">
+<div class="text-center text-xs opacity-75 mt-3">
 меняем <b>count</b> → <b>sum</b> пересчитался → <b>withTax</b> пересчитался
 </div>
 
@@ -708,7 +708,7 @@ flowchart LR
 layout: section
 ---
 
-<div class="text-7xl text-sky-400 opacity-80 mb-4"><carbon:flow /></div>
+<div class="text-7xl text-sky-400 opacity-90 mb-4"><carbon:flow /></div>
 
 # Часть 2
 ## Как это реализуют — карта примитивов
@@ -819,22 +819,22 @@ flowchart TD
 
 <div v-click class="p-3 border border-gray-400/20 rounded">
 <b class="text-[#ff9243]"><ph:wave-sine-bold class="inline" /> RxJS</b> — явные <b>потоки</b>.<br/>
-<span class="text-sm opacity-70">Мощная асинхронная композиция; кривая обучения крутая.</span>
+<span class="text-sm opacity-85">Мощная асинхронная композиция; кривая обучения крутая.</span>
 </div>
 
 <div v-click class="p-3 border border-gray-400/20 rounded">
 <b class="text-sky-300"><ph:circles-three-bold class="inline" /> XState</b> — явные <b>режимы</b>.<br/>
-<span class="text-sm opacity-70">Когда важно «в каком состоянии находится фича».</span>
+<span class="text-sm opacity-85">Когда важно «в каком состоянии находится фича».</span>
 </div>
 
 <div v-click class="p-3 border border-gray-400/20 rounded">
 <b class="text-violet-300"><ph:lightning-bold class="inline" /> MobX / Solid / Signals</b> — fine-grained.<br/>
-<span class="text-sm opacity-70">Минимум кода, «магия» автозависимостей.</span>
+<span class="text-sm opacity-85">Минимум кода, «магия» автозависимостей.</span>
 </div>
 
 <div v-click class="p-3 border border-gray-400/20 rounded">
 <b class="text-amber-300"><ph:stack-bold class="inline" /> Redux-Saga / -Observable</b> — слой <b>эффектов</b>.<br/>
-<span class="text-sm opacity-70">Кинетика поверх дискретного Redux.</span>
+<span class="text-sm opacity-85">Кинетика поверх дискретного Redux.</span>
 </div>
 
 </div>
@@ -857,7 +857,7 @@ flowchart TD
 layout: section
 ---
 
-<div class="text-7xl text-violet-400 opacity-80 mb-4"><carbon:trophy /></div>
+<div class="text-7xl text-violet-400 opacity-90 mb-4"><carbon:trophy /></div>
 
 # Часть 3
 ## Чем подход реально выигрывает
@@ -929,13 +929,13 @@ layoutClass: gap-8
 <div class="p-3 border border-sky-400/30 rounded bg-sky-400/5 mb-4">
 <b class="text-sky-300">UI</b><br/>
 Только генерирует события<br/>и отображает состояние.<br/><br/>
-<span class="opacity-70 text-sm">Не знает про бизнес-логику и сайд-эффекты.</span>
+<span class="opacity-85 text-sm">Не знает про бизнес-логику и сайд-эффекты.</span>
 </div>
 
 <div class="p-3 border border-violet-400/30 rounded bg-violet-400/5">
 <b class="text-violet-300">Модель</b><br/>
 события → связи → состояние → эффекты.<br/><br/>
-<span class="opacity-70 text-sm">Живёт без React/Vue.</span>
+<span class="opacity-85 text-sm">Живёт без React/Vue.</span>
 </div>
 
 ::right::
@@ -1002,12 +1002,12 @@ expect(scope.getState($todos)).toHaveLength(1)
 layout: section
 ---
 
-<div class="text-7xl text-amber-400 opacity-80 mb-4"><ph:scales-bold /></div>
+<div class="text-7xl text-amber-400 opacity-90 mb-4"><ph:scales-bold /></div>
 
 # Часть 4
 ## Trade-offs: когда стоит и когда НЕ стоит
 
-<div class="text-sm opacity-60 mt-2">Самая честная часть. Без неё доклад — реклама.</div>
+<div class="text-sm opacity-75 mt-2">Самая честная часть. Без неё доклад — реклама.</div>
 
 <!--
 🗣 А теперь самая честная часть. Без неё доклад был бы рекламой.
@@ -1079,8 +1079,8 @@ class: flex flex-col
     <div class="text-3xl text-rose-400"><carbon:debug /></div>
     <div class="font-bold text-lg">Дебаг графа</div>
   </div>
-  <div class="text-sm opacity-80">«Откуда прилетело это обновление?» Изменение приходит издалека — без devtools трассировать больно.</div>
-  <div class="mt-3 font-mono text-xs opacity-60">event → ? → ? → 💥 store</div>
+  <div class="text-sm opacity-90">«Откуда прилетело это обновление?» Изменение приходит издалека — без devtools трассировать больно.</div>
+  <div class="mt-3 font-mono text-xs opacity-75">event → ? → ? → 💥 store</div>
 </div>
 
 <div class="p-5 rounded-xl border border-violet-400/30 bg-violet-400/5">
@@ -1088,8 +1088,8 @@ class: flex flex-col
     <div class="text-3xl text-violet-400"><ph:brain-bold /></div>
     <div class="font-bold text-lg">Порог входа</div>
   </div>
-  <div class="text-sm opacity-80">Нужно перестроить мышление: с «команд» на <b>граф событий и связей</b>.</div>
-  <div class="mt-3 font-mono text-xs opacity-60">императив → 🧠 → граф</div>
+  <div class="text-sm opacity-90">Нужно перестроить мышление: с «команд» на <b>граф событий и связей</b>.</div>
+  <div class="mt-3 font-mono text-xs opacity-75">императив → 🧠 → граф</div>
 </div>
 
 <div class="p-5 rounded-xl border border-sky-400/30 bg-sky-400/5">
@@ -1097,8 +1097,8 @@ class: flex flex-col
     <div class="text-3xl text-sky-400"><carbon:text-align-left /></div>
     <div class="font-bold text-lg">Линейность</div>
   </div>
-  <div class="text-sm opacity-80">Императив читается <b>сверху вниз</b> — граф так не прочитать.</div>
-  <div class="mt-3 font-mono text-xs opacity-60">1 → 2 → 3   vs   ┌─ graph ─┐</div>
+  <div class="text-sm opacity-90">Императив читается <b>сверху вниз</b> — граф так не прочитать.</div>
+  <div class="mt-3 font-mono text-xs opacity-75">1 → 2 → 3   vs   ┌─ graph ─┐</div>
 </div>
 
 </v-clicks>
@@ -1124,7 +1124,7 @@ class: text-center
 
 <v-click>
 
-<div class="text-xl opacity-80 mt-10 max-w-3xl mx-auto">
+<div class="text-xl opacity-90 mt-10 max-w-3xl mx-auto">
 Если да — то и состояние логичнее вести <b>событиями</b>, а не командами.<br/>
 Кинетический подход просто доводит это «да» до конца.
 </div>
@@ -1144,7 +1144,7 @@ layoutClass: gap-8
 
 # Спасибо! 🙏
 
-<div class="text-sm opacity-80 mb-2">Что унести с собой:</div>
+<div class="text-sm opacity-90 mb-2">Что унести с собой:</div>
 
 <div class="text-sm leading-relaxed">
 
@@ -1173,7 +1173,7 @@ flowchart TD
 
 </div>
 
-<div class="text-xs text-center opacity-70 mt-2">три столпа в одном цикле</div>
+<div class="text-xs text-center opacity-85 mt-2">три столпа в одном цикле</div>
 
 <div class="mt-6 flex justify-center gap-5 text-sm">
   <a href="https://en.wikipedia.org/wiki/Kinetic_Rule_Language" target="_blank">KRL</a>
@@ -1182,7 +1182,7 @@ flowchart TD
   <a href="https://stately.ai/docs/xstate" target="_blank">XState</a>
 </div>
 
-<ul class="mt-4 ml-24 text-sm opacity-60">
+<ul class="mt-4 ml-24 text-sm opacity-75">
   <li> Telegram [@olovyannikov_frontend]</li> <li> GitHub [/Olovyannikov]</li>
 </ul>
 

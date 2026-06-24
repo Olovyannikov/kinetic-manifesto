@@ -1,10 +1,26 @@
-/* === Цветовая тема Effector (effector.dev, тёмная) === */
+/* === Цветовая тема Effector — светлая / тёмная === */
 :root {
   --slidev-theme-primary: #fe6801; /* фирменный оранжевый Effector */
-  --eff-bg: #1d1d1f;               /* фон страницы */
-  --eff-fg: #fafafa;               /* основной текст */
   --eff-orange: #fe6801;
   --eff-orange-light: #ff9243;
+}
+
+/* --- Тёмная тема --- */
+html.dark {
+  --eff-bg: #1a1a1c;       /* фон страницы */
+  --eff-fg: #ffffff;       /* основной текст — чистый белый для контраста на проекторе */
+  --eff-heading: #ffffff;  /* заголовки */
+  --eff-link: #ff9243;     /* ссылки — светлый оранжевый */
+  --eff-ui: #ffffff;       /* служебные элементы (номер слайда и т.п.) */
+}
+
+/* --- Светлая тема --- */
+html:not(.dark) {
+  --eff-bg: #ffffff;
+  --eff-fg: #18181b;       /* почти чёрный текст */
+  --eff-heading: #111114;
+  --eff-link: #d4540a;     /* тёмный оранжевый — читаемый на белом */
+  --eff-ui: #18181b;
 }
 
 .slidev-layout {
@@ -12,12 +28,12 @@
   color: var(--eff-fg);
 }
 
-/* Ссылки в фирменный оранжевый */
+/* Ссылки в фирменный оранжевый (адаптивно под тему) */
 .slidev-layout a {
-  color: var(--eff-orange-light);
+  color: var(--eff-link);
 }
 
-/* Переопределяем seriph-тему: заголовки без засечек (Lexend Deca) + белые */
+/* Переопределяем seriph-тему: заголовки без засечек (Lexend Deca) */
 .slidev-layout h1,
 .slidev-layout h2,
 .slidev-layout h3,
@@ -27,7 +43,7 @@
   font-family: 'Lexend Deca', var(--slidev-font-sans), ui-sans-serif, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--eff-heading);
 }
 
 .slidev-layout h1 {
@@ -54,7 +70,7 @@
   bottom: 0.75rem;
   font-family: 'IBM Plex Mono', var(--slidev-font-mono), monospace;
   font-size: 0.95rem;
-  color: #fff;
+  color: var(--eff-ui);
   opacity: 0.85;
   z-index: 20;
 }
